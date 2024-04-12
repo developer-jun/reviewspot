@@ -1,0 +1,94 @@
+@php
+    //$metatags = json_decode($metatags);
+    //$formData = json_decode($formData);
+    // dd($metatags, $formData);
+@endphp
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ config('app.name', 'ReviewSpot') }} - {{ $metatags->title }}</title>
+  <meta name ="description", content="{{ $metatags->meta_description }}">
+  <meta name ="keywords", content="{{ $metatags->meta_keywords }}">
+  <link rel="shortcut icon" type="image/png" href="https://img.icons8.com/small/64/000000/fire-heart.png"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  @vite(['resources/css/main.scss'])
+
+  <!-- AlpineJS -->
+  <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+</head>
+<body class="bg-white dark:bg-slate-800 text-gray-400">
+
+  <header class="md:flex items-center justify-between [&>*]:px-8 h-20 text-white sticky bg-gray-700 top-0 z-50  relative">
+      <div class="flex items-center justify-between h-20">
+          <logo>
+              <a class="flex items-center gap-1" href="">
+                  <img class="h-10 -mt-1" src="/resources/images/group-stars.svg"/>
+                  <span class="text-lg font-bold">{{ config('app.name', 'ReviewSpot') }}</span>
+              </a>
+          </logo>          
+      </div>
+      <nav  class="md:!block  h-screen w-screen md:h-auto md:w-auto -mt-20 md:mt-0 absolute md:relative z-[-1]">
+          <ul class="flex items-center navitems flex-col md:flex-row gap-8 md:gap-0 justify-center h-full -translate-y-10 md:translate-y-0">
+              <li><a href="">Home</a></li>
+              <li><a href="">Create Post</a></li>
+              <li class="relative">
+                  <a class="cursor-pointer select-none">
+                      <img class="h-8 rounded-full object-cover bg-teal-200" src="https://img.icons8.com/doodle/96/null/bart-simpson.png"/>
+                      [{{ $user }}]
+                      <img class="w-4" src="https://img.icons8.com/small/32/777777/expand-arrow.png"/>
+                  </a>
+                  
+              </li>
+          </ul>
+      </nav>
+  </header>
+
+  <hero class="grid z-10 text-white text-center bg-cover bg-[url('https://live.staticflickr.com/65535/49909538937_3255dcf9e7_b.jpg')]"> {{-- /resources/images/city-scape-min.jpg  {{  config('app.url') }}/resources/images/city-scape-min.jpg--}}
+      <div class="col-start-1 row-start-1 bg-gray-800 bg-opacity-40 w-full h-full"></div>
+      <div x-data="{ stateDropdownOpen: false, categoryDropdownOpen: false }" class="col-start-1 row-start-1 py-24 px-10 ">
+        <div class="center text-3xl text-rose-500 mb-3"><strong>Search Business</strong></div>
+        <form class="max-w-lg mx-auto relative">
+            <div class="flex">
+                <x-forms.search-select :options="$states" :label="'State'" :name="'state'" />
+                <x-forms.search-select :options="$categories" :label="'Category'" :name="'category'" />
+                <x-forms.search-input />
+                <!--<button @click="stateDropdownOpen = !stateDropdownOpen" class="flex-shrink-0 z-10 inline-flex items-center py-2.5 px-4 text-sm font-medium text-center text-gray-500 bg-gray-100 border border-gray-300 rounded-s-lg hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700 dark:text-white dark:border-gray-600" type="button">                    
+                    USA <svg class="w-2.5 h-2.5 ms-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+                    </svg>
+                </button>--->
+                {{--<label for="states" class="sr-only">State</label>
+                <select id="states" class="block p-2.5 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-s-lg dark:border-s-gray-700 border-s-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <option selected>State</option>
+                    @foreach ($states as $state)
+                        <option value="{{ $state->code }}">{{ $state->name }}</option>
+                    @endforeach                    
+                </select>            
+                <label for="states" class="sr-only">Category</label>
+                <select id="states" class="block p-2.5 bg-gray-50 border border-gray-300 text-gray-900 text-sm border-s-gray-100 dark:border-s-gray-700 border-s-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <option selected>Any Category</option>
+                    @foreach ($categories as $category)
+                        <option value="{{ $category }}">{{ $category }}</option>
+                    @endforeach
+                </select>--}}
+                            
+            </div>            
+        </form>         
+      </div>
+  </hero>
+
+  <content class="grid grid-cols-3 max-w-7xl mx-auto mt-6">      
+      <main class="col-span-full md:col-span-2 mx-[5%] md:mx-[10%] order-2 md:order-1">
+            {{ $slot }}  
+      </main>
+      <x-layouts.front-sidebar :categories="$categories" />
+      {{-- @include('components.layouts.front-sidebar') --}}
+  </content>    
+</body>
+</html>
